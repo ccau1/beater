@@ -1,0 +1,30 @@
+
+env:
+  ARGO_REPO_CHANGES: >-                         # changes to the argo repo (use __IMAGE_TAG__ )
+    {
+      "web/wl-useast-1/trustwallet-v2/values-blog.yaml": {
+        "argocdApplications.blog.values.deployment.spec.image": "278880596998.dkr.ecr.us-east-1.amazonaws.com/${{ github.repository }}/blog:__IMAGE_TAG__"
+      },
+      "web/wl-useast-1/trustwallet-v2/values-strapi.yaml": {
+        "argocdApplications['strapi-cms'].values.deployment.spec.image": "278880596998.dkr.ecr.us-east-1.amazonaws.com/${{ github.repository }}/strapi:__IMAGE_TAG__"
+      }
+    }
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Format changes
+        id: format_changes
+        run: |
+          echo "very initial: ${{env.ARGO_REPO_CHANGES}}"
+          CHANGES=${{ env.ARGO_REPO_CHANGES }}
+          echo "before result: "$CHANGES
+          CHANGES=$(echo $CHANGES | sed 's/__IMAGE_TAG__/abc/g')
+          echo "format change result: "$CHANGES
+          echo "ARGO_CHANGES=$CHANGES" >> $GITHUB_OUTPUT
