@@ -23,7 +23,7 @@ jobs:
         id: format_changes
         run: |
           echo "very initial: ${{env.ARGO_REPO_CHANGES}}"
-          CHANGES=${{ env.ARGO_REPO_CHANGES }}
+          CHANGES="${{ env.ARGO_REPO_CHANGES }}"
           echo "before result: "$CHANGES
           CHANGES=$(echo $CHANGES | sed 's/__IMAGE_TAG__/abc/g')
           echo "format change result: "$CHANGES
