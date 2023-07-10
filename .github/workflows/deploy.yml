@@ -2,7 +2,7 @@
 env:
   ARGO_REPO_CHANGES: >-                         # changes to the argo repo (use __IMAGE_TAG__ )
     {
-      "web/wl-useast-1/trustwallet-v2/values-blog.yaml": {
+      \"web/wl-useast-1/trustwallet-v2/values-blog.yaml\": {
         "argocdApplications.blog.values.deployment.spec.image": "278880596998.dkr.ecr.us-east-1.amazonaws.com/${{ github.repository }}/blog:__IMAGE_TAG__"
       },
       "web/wl-useast-1/trustwallet-v2/values-strapi.yaml": {
